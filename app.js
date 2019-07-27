@@ -1,3 +1,18 @@
+var firebaseConfig = {
+    apiKey: "AIzaSyASaXV3V9RdYCuES0pS1oDDczLKzGAfvSE",
+    authDomain: "train-project-ommen.firebaseapp.com",
+    databaseURL: "https://train-project-ommen.firebaseio.com",
+    projectId: "train-project-ommen",
+    storageBucket: "",
+    messagingSenderId: "543103120084",
+    appId: "1:543103120084:web:18bb227706d680bc"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+
+
 
 //Time clock in the header 
 function update() {
