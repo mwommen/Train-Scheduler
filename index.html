@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <link href="https://fonts.googleapis.com/css?family=Contrail+One&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
     <script src= "https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
@@ -30,14 +29,12 @@
 
 
 
-<!-- The core Firebase JS SDK is always required and must be listed first
 <script src="/__/firebase/6.3.3/firebase-app.js"></script>
 
- TODO: Add SDKs for Firebase products that you want to use -->
     
 
 <!-- Initialize Firebase -->
-<!-- <script src="/__/firebase/init.js"></script> --> 
+ <script src="/__/firebase/init.js"></script>  
 
 <!-- creating the table using bootstrap to hold all of the train times and information about the incoming train. -->
         <table class="table table-striped">
@@ -46,35 +43,19 @@
                         <th scope="col">Train Name</th>
                         <th scope="col">Destination</th>
                         <th scope="col">Frequency</th>
+                        <th scope="col">First Train</th>
                         <th scope="col">Next Arrival</th>
                         <th scope="col">Minutes Away</th>
 
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+                    <tbody id="table-body">
+                   
                     </tbody>
                   </table>
 
         
-    <!-- creating a input table using bootstrap to all user input  -->
+    <!-- creating a input table using bootstrap to allow user input  -->
     <form>
             <div class="form-group">
               <label for="exampleInputEmail1">Train Name</label>
@@ -94,7 +75,7 @@
                     <input type="frequency" class="form-control" id="frequency" placeholder="Frequency">
                   </div>
 
-            <button type="submit" class="btn btn-primary" value="submit" id="btnSubmit" onclick="wawa()">Submit</button>
+            <button type="submit" class="btn btn-primary" value="submit" id="btnSubmit">Submit</button>
           </form>   
 </body>
 </html>

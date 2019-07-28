@@ -1,4 +1,5 @@
-var firebaseConfig = {
+$(document).ready(function(){
+    var firebaseConfig = {
     apiKey: "AIzaSyASaXV3V9RdYCuES0pS1oDDczLKzGAfvSE",
     authDomain: "train-project-ommen.firebaseapp.com",
     databaseURL: "https://train-project-ommen.firebaseio.com",
@@ -10,41 +11,55 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-
-
-
-
-//Time clock in the header 
-function update() {
-  $('#currentTime').html(moment().format('D. MMMM YYYY H:mm:ss'));
-}
-setInterval(update, 1000);
-
-
-valof = moment().valueOf();          
-console.log(valof)
-$("#btnSubmit").html
-valof.preventDefault();
-
-// $('#btnSubmit').html
-
-var trainName=""
-var destination=""
-var firstTrain=""
-var frequency=""
-
-//Create a button and log a message to the console to make sure every click sends the message 
-$("#btnSubmit").on("click", function(clickSubmit) {
-    clickSubmit.preventDefault();
-
+  var database = firebase.database().ref();
+  
+  database.on('child_added', function(snapshot){
+      //Designed to handle 1 object
+      console.log(snapshot.val());
+      //Look at total minutes from when first train occured and now -- this difference
+      //We will divide that number by our frequency
+      //And look at the remainder
+      var totalMinutesSinceTrainStarted = moment(snapshot.val().firstTrain, 'H:m').diff(moment(), 'minutes');
+      var timeDiff = totalMinutesSinceTrainStarted % snapshot.val().frequency;
+      var nextArrival = moment().add(timeDiff, 'minutes');
+      
+      var html =  "<tr><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().firstTrain + "</td><td>" + nextArrival.format('H:m') + "</td><td>" + (frequency - Math.abs(timeDiff)) + "</td></tr>" 
+      $("#table-body").append(html)
+    });
+    
+    //Time clock in the header using moment.js
+    function update() {
+        $('#currentTime').html(moment().format('D. MMMM YYYY H:mm:ss'));
+    }
+    setInterval(update, 1000);
+    
+    //Create a timestamp
+    valof = moment().valueOf();          
+    console.log(valof)
+    //$("#btnSubmit").html
+    // valof.preventDefault();
+    
+    // $('#btnSubmit').html
+    
+    //create varaibles for each user input box
+    var trainName=""
+    var destination=""
+    var firstTrain=""
+    var frequency=""
+    
+    //submit button function so user input is added to the bottom of the table 
+    $("#btnSubmit").on("click", function(event) {
+        event.preventDefault();
+        
+        trainName = $("#trainName").val().trim();
+        destination = $("#Destination").val().trim();
+        firstTrain = $("#trainTime").val().trim();
+        frequency = $("#frequency").val().trim();
+        //Shorthand Javascript Object NOtation => propertyname === variablename with value stored in it you want associated with property
+        database.push({trainName, destination, firstTrain, frequency});
     console.log("button clicked")
    
-     trainName = $("#trainName").val().trim();
-     destination = $("#Destination").val().trim();
-     firstTrain = $("#trainTime").val().trim();
-     frequency = $("#frequency").val().trim();
-
-consolelog(trainName,destination,firstTrain.frequency)
+console.log(trainName,destination,firstTrain.frequency)
 
     //   database.ref().set({
     //     name: name,
@@ -52,3 +67,8 @@ consolelog(trainName,destination,firstTrain.frequency)
     //     age: age,
     //     comment: comment
       });
+
+
+//add new train input to the bottom of the table 
+
+});
