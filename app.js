@@ -15,15 +15,14 @@ $(document).ready(function(){
   
   database.on('child_added', function(snapshot){
       //Designed to handle 1 object
-      console.log(snapshot.val());
       //Look at total minutes from when first train occured and now -- this difference
       //We will divide that number by our frequency
-      //And look at the remainder
+      //And look at the remainder(modulus)
       var totalMinutesSinceTrainStarted = moment(snapshot.val().firstTrain, 'H:m').diff(moment(), 'minutes');
       var timeDiff = totalMinutesSinceTrainStarted % snapshot.val().frequency;
       var nextArrival = moment().add(timeDiff, 'minutes');
       
-      var html =  "<tr><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().firstTrain + "</td><td>" + nextArrival.format('H:m') + "</td><td>" + (frequency - Math.abs(timeDiff)) + "</td></tr>" 
+      var html =  "<tr><td>" + snapshot.val().trainName + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().firstTrain + "</td><td>" + nextArrival.format('H:mm') + "</td><td>" + (frequency - Math.abs(timeDiff)) + "</td></tr>" 
       $("#table-body").append(html)
     });
     
@@ -32,14 +31,9 @@ $(document).ready(function(){
         $('#currentTime').html(moment().format('D. MMMM YYYY H:mm:ss'));
     }
     setInterval(update, 1000);
-    
+
     //Create a timestamp
     valof = moment().valueOf();          
-    console.log(valof)
-    //$("#btnSubmit").html
-    // valof.preventDefault();
-    
-    // $('#btnSubmit').html
     
     //create varaibles for each user input box
     var trainName=""
@@ -55,20 +49,10 @@ $(document).ready(function(){
         destination = $("#Destination").val().trim();
         firstTrain = $("#trainTime").val().trim();
         frequency = $("#frequency").val().trim();
-        //Shorthand Javascript Object NOtation => propertyname === variablename with value stored in it you want associated with property
         database.push({trainName, destination, firstTrain, frequency});
-    console.log("button clicked")
    
-console.log(trainName,destination,firstTrain.frequency)
-
-    //   database.ref().set({
-    //     name: name,
-    //     email: email,
-    //     age: age,
-    //     comment: comment
       });
 
 
-//add new train input to the bottom of the table 
 
 });
